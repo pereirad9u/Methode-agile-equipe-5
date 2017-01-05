@@ -1,0 +1,6 @@
+composer.phar
+composer.lock
+vendor/
+cache/twig/*
+!cache/twig/.gitkeep
+bootstrap/db.php
