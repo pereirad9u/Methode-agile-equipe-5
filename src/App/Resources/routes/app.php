@@ -13,4 +13,4 @@ $app->get('/franceConnect',function (){
 
 
 
-$app->get('/account',"AccountController:home");
+$app->get('/account',"AccountController:home")->setName('user.account');
