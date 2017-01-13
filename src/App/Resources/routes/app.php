@@ -9,5 +9,8 @@ $app->get('/franceConnect',function (){
      echo '<pre>';
    var_dump($_SESSION);
     echo '</pre>';
-
 });
+
+
+
+$app->get('/account',"AccountController:home");
