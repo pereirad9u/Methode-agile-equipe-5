@@ -13,14 +13,17 @@
     <form action="{{ path_for('user.updateRole') }}" method="POST">
         Changer le rôle:
         <select name="role" id="role" class="form-control" select>
-            {% if auth.user.roles[0].slug=='moe' %}
-            <option value="moe" selected>moe</option>
-            <option value="mo">mo</option>
+            {% for role in auth.user.roles %}
+            {% if role.slug=='moe' %}
+            <option value="moe" selected>Maitre d'oeuvre</option>
+            <option value="mo">Maitre d'ouvrage</option>
             {% endif %}
-            {% if auth.user.roles[0].slug=='mo' %}
-            <option value="moe">moe</option>
-            <option value="mo" selected>mo</option>
+            {% if role.slug=='mo' %}
+            <option value="moe">Maitre d'oeuvre</option>
+            <option value="mo" selected>Maitre d'ouvrage</option>
             {% endif %}
+            {% endfor %}
+
         </select>
         {{csrf()}}
         <input type="submit" value="Modifier le role" class="btn btn-primary">

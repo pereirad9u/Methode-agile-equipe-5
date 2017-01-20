@@ -9,8 +9,8 @@
       <form action="{{ path_for('user.updateRole') }}" method="POST">
           Choisir son rôle:
           <select name="role" id="role" class="form-control">
-               <option value="moe">Moe</option>
-               <option value="mo">Mo</option>
+               <option value="moe">Maitre d'oeuvre</option>
+               <option value="mo">Maitre d'ouvrage</option>
           </select>
           {{csrf()}}
           <input type="submit" value="Modifier" class="btn btn-primary">
