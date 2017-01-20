@@ -21,6 +21,10 @@ b{
 }
 
 
-.panel{
+.panel,.container{
   margin-top: 50px;
+}
+
+select{
+  display: inline-block;
 }

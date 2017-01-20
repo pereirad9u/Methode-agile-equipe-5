@@ -101,7 +101,9 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `slug`, `name`, `permissions`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'Admin', '{"user.create":true,"user.update":true,"user.delete":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
-(2, 'user', 'User', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57');
+(2, 'user', 'User', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
+(3, 'moe', 'Maitre d\'oeuvre', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
+(2, 'mo', 'Maitre d\'ouvrage', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57');
 
 -- --------------------------------------------------------
 
