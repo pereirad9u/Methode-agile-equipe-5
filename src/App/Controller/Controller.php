@@ -46,6 +46,19 @@ class Controller
         return $response->withRedirect($this->router->pathFor($route, $params));
     }
 
+
+    /**
+     * Get current user
+     *
+     * @return User
+     */
+    public function user()
+    {
+        return $this->auth->getUser();
+    }
+
+
+    
     /**
      * Redirect to url
      *
