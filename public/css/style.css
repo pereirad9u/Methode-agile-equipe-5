@@ -28,3 +28,6 @@ b{
 select{
   display: inline-block;
 }
+form{
+  margin-bottom: 30px;
+}
