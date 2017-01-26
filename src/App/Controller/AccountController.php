@@ -60,6 +60,11 @@ class AccountController extends Controller
               $entreprise->save();
               $entreprise->users()->save($user);
             }
+            if ($request->getParam('chiffre_affaire')){
+               $entreprise = $user->entreprise()->first();
+               $entreprise->chiffre_affaire = $request->getParam('chiffre_affaire');
+               $entreprise->save();
+             }
              $this->flash('success', 'Vos informations ont bien été pris en compte');
              return $this->redirect($response, 'user.account');
         }
