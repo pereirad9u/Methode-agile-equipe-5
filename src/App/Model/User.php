@@ -9,6 +9,7 @@ class User extends EloquentUser
     protected $table = 'user';
 
     protected $primaryKey = 'id';
+        public $timestamps = false;
 
     protected $fillable = [
         'username',
@@ -18,6 +19,9 @@ class User extends EloquentUser
         'first_name',
         'permissions',
     ];
-
+    public function entreprise()
+    {
+      return $this->belongsTo('App\Model\Entreprise');
+    }
     protected $loginNames = ['username', 'email'];
 }

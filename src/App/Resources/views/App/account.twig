@@ -7,6 +7,7 @@
     <h1>{{auth.user.username}}</h1>
     <form action="{{ path_for('user.updateProfile') }}" method="POST">
         {{ form.group('email', null, 'email', 'Email', null, 'email',auth.user.email) }}
+        {{ form.group('entreprise', null, 'entreprise', 'Nom d\'entreprise', null,null,entreprise.nom) }}
         {{ csrf() }}
         <input type="submit" value="Changer le profil" class="btn btn-primary">
     </form>
@@ -23,6 +24,7 @@
             <option value="mo" selected>Maitre d'ouvrage</option>
             {% endif %}
             {% endfor %}
+
 
         </select>
         {{csrf()}}

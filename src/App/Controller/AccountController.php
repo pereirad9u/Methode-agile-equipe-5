@@ -5,6 +5,7 @@ namespace App\Controller;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Cartalyst\Sentinel\Native\Facades\Sentinel;
+use App\Model\Entreprise;
 
 class AccountController extends Controller
 {
@@ -15,7 +16,7 @@ class AccountController extends Controller
         if (!$user->inRole('moe') && !$user->inRole('mo'))
            return $this->redirect($response, 'user.updateRole');
 
-        return $this->view->render($response, 'App/account.twig', ["user"=>$user]);
+        return $this->view->render($response, 'App/account.twig', ["entreprise"=>$user->entreprise()->first()]);
     }
 
     public function updateRole(Request $request, Response $response)
@@ -48,10 +49,17 @@ class AccountController extends Controller
     {
         $user = $this->user();
         if ($request->isPost()) {
-            if ($request->getParam('email')){
-                 $user->email = $request->getParam('email');
-                 $user->save();
-             }
+          if ($request->getParam('email')){
+               $user->email = $request->getParam('email');
+               $user->save();
+           }
+           if ($request->getParam('entreprise')){
+              $entreprise = Entreprise::where('nom',$request->getParam('entreprise'))->first();
+              $entreprise = new Entreprise();
+              $entreprise->nom = $request->getParam('entreprise');
+              $entreprise->save();
+              $entreprise->users()->save($user);
+            }
              $this->flash('success', 'Vos informations ont bien été pris en compte');
              return $this->redirect($response, 'user.account');
         }
