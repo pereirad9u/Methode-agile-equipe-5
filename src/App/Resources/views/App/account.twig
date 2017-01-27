@@ -22,31 +22,41 @@
 
     <fieldset>
       {% for role in auth.user.roles %}
-        {% if role.slug=='moe' and entreprise.nom %}
-        <form action="{{ path_for('user.addDocument') }}"  method="POST" enctype='multipart/form-data'>
-          <label for="declaration">Ajouter une declaration</label>
-          <div class="filesContainer">
-            {% for type,array in files %}
-              {% if type=='declaration' %}
-                {% for file in array %}
-                  <a href="/uploads/{{auth.user.id}}/declaration/{{file}}">{{file}}</a>
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
+      {% if role.slug=='moe' and entreprise.nom %}
+      <form action="{{ path_for('user.addDocument') }}"  method="POST" enctype='multipart/form-data'>
+        <label for="declaration">Ajouter une declaration</label>
+        <div class="filesContainer">
+          {% for type,array in files %}
+            {% if type=='declaration' %}
+              {% for file in array %}
+                <a href="/uploads/{{auth.user.id}}/declaration/{{file}}">{{file}}</a>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="file-field input-field" id="declaration">
+          <div class="btn">
+            <span>Parcourir</span>
+            <input type="file" name="declaration">
           </div>
-          <div class="file-field input-field" id="declaration">
-            <div class="btn">
-              <span>Parcourir</span>
-              <input type="file" name="declaration">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-            {{ csrf() }}
-            <input type="submit" value="Uploader" class="btn btn-primary">
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
           </div>
-        </form>
-        {% endif %}
+          {{ csrf() }}
+          <input type="submit" value="Uploader" class="btn btn-primary">
+        </div>
+      </form>
+      {% endif %}
+
+
+
+      {% if role.slug=='mo' and entreprise.nom %}
+        Mes appels d'offres:
+        {% for appeloffre in appelOffres %}
+          <a href="{{path_for('appeloffre.show', {'ao_id': appeloffre.id})}}">{{appeloffre.nom}}</a> 
+        {% endfor %}
+        <a href="{{path_for('appeloffre.create')}}" class="btn btn-x-lg btn-primary">Creer un appel d'offre</a>
+      {% endif %}
       {% endfor %}
     </fieldset>
 

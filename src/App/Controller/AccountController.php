@@ -6,6 +6,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Cartalyst\Sentinel\Native\Facades\Sentinel;
 use App\Model\Entreprise;
+use App\Model\AppelOffre;
 
 class AccountController extends Controller
 {
@@ -22,7 +23,8 @@ class AccountController extends Controller
       $scanned_subdirectory = array_diff(scandir("$directory/$type"), array('..', '.'));
       $files[$type] = $scanned_subdirectory;
     }
-    return $this->view->render($response, 'App/account.twig', ["entreprise"=>$user->entreprise()->first(), "files"=>$files]);
+    $appelOffres = $user->appelOffres()->get();
+    return $this->view->render($response, 'App/account.twig', ["entreprise"=>$user->entreprise()->first(), "files"=>$files, "appelOffres"=>$appelOffres]);
   }
 
   public function updateRole(Request $request, Response $response)

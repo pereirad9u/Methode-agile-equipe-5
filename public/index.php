@@ -12,5 +12,5 @@ require __DIR__ . '/../bootstrap/dependencies.php';
 require __DIR__ . '/../bootstrap/middleware.php';
 
 require __DIR__ . '/../bootstrap/controllers.php';
-
+//error_reporting(0);
 $app->run();

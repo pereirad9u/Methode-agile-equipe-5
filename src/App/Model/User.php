@@ -23,5 +23,9 @@ class User extends EloquentUser
     {
       return $this->belongsTo('App\Model\Entreprise');
     }
+    public function appelOffres()
+    {
+      return $this->hasMany('App\Model\AppelOffre');
+    }
     protected $loginNames = ['username', 'email'];
 }
