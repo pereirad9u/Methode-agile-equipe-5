@@ -2,42 +2,75 @@
 
 {% import 'Macro/form.twig' as form %}
 {% block body %}
-
 <div class="container">
     <h1>{{auth.user.username}}</h1>
 
-
-    <form action="{{ path_for('user.updateProfile') }}" method="POST">
-        {{ form.group('email', null, 'email', 'Email', null, 'email',auth.user.email) }}
-        {{ form.group('entreprise', null, 'entreprise', 'Nom d\'entreprise', null,'number',entreprise.nom) }}
-        {% for role in auth.user.roles %}
-          {% if role.slug=='moe' and entreprise.nom %}
-            {{ form.group('chiffre_affaire', null, 'chiffre_affaire', 'Chiffre d\'affaire', null,null,entreprise.chiffre_affaire) }}
-          {% endif %}
-        {% endfor %}
-        {{ csrf() }}
-        <input type="submit" value="Changer le profil" class="btn btn-primary">
-    </form>
-
-
-
-    <form action="{{ path_for('user.updateRole') }}" method="POST">
-        Changer le rôle:
-        <select name="role" id="role" class="form-control" select>
-            {% for role in auth.user.roles %}
-            {% if role.slug=='moe' %}
-              <option value="moe" selected>Maitre d'oeuvre</option>
-              <option value="mo">Maitre d'ouvrage</option>
+    <fieldset>
+      <form action="{{ path_for('user.updateProfile') }}" method="POST">
+          {{ form.group('email', null, 'email', 'Email', null, 'email',auth.user.email) }}
+          {{ form.group('entreprise', null, 'entreprise', 'Nom d\'entreprise', null,'number',entreprise.nom) }}
+          {% for role in auth.user.roles %}
+            {% if role.slug=='moe' and entreprise.nom %}
+              {{ form.group('chiffre_affaire', null, 'chiffre_affaire', 'Chiffre d\'affaire', null,null,entreprise.chiffre_affaire) }}
             {% endif %}
-            {% if role.slug=='mo' %}
-              <option value="moe">Maitre d'oeuvre</option>
-              <option value="mo" selected>Maitre d'ouvrage</option>
-            {% endif %}
+          {% endfor %}
+          {{ csrf() }}
+          <input type="submit" value="Changer le profil" class="btn btn-primary">
+      </form>
+    </fieldset>
+
+
+    <fieldset>
+      {% for role in auth.user.roles %}
+        {% if role.slug=='moe' and entreprise.nom %}
+        <form action="{{ path_for('user.addDocument') }}"  method="POST" enctype='multipart/form-data'>
+          <label for="declaration">Ajouter une declaration</label>
+          <div class="filesContainer">
+            {% for type,array in files %}
+              {% if type=='declaration' %}
+                {% for file in array %}
+                  <a href="/uploads/{{auth.user.id}}/declaration/{{file}}">{{file}}</a>
+                {% endfor %}
+              {% endif %}
             {% endfor %}
-        </select>
-        {{csrf()}}
-        <input type="submit" value="Modifier le role" class="btn btn-primary">
-    </form>
+          </div>
+          <div class="file-field input-field" id="declaration">
+            <div class="btn">
+              <span>Parcourir</span>
+              <input type="file" name="declaration">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+            {{ csrf() }}
+            <input type="submit" value="Uploader" class="btn btn-primary">
+          </div>
+        </form>
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+
+
+<fieldset>
+  <form action="{{ path_for('user.updateRole') }}" method="POST">
+      Changer le rôle:
+      <select name="role" id="role" class="form-control" select>
+          {% for role in auth.user.roles %}
+          {% if role.slug=='moe' %}
+            <option value="moe" selected>Maitre d'oeuvre</option>
+            <option value="mo">Maitre d'ouvrage</option>
+          {% endif %}
+          {% if role.slug=='mo' %}
+            <option value="moe">Maitre d'oeuvre</option>
+            <option value="mo" selected>Maitre d'ouvrage</option>
+          {% endif %}
+          {% endfor %}
+      </select>
+      {{csrf()}}
+      <input type="submit" value="Modifier le role" class="btn btn-primary">
+  </form>
+</fieldset>
+
 
 </div>
 

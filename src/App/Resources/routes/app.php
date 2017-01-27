@@ -17,3 +17,4 @@ $app->get('/account',"AccountController:home")->setName('user.account');
 $app->get('/updateRole',"AccountController:updateRole")->setName('user.updateRole');
 $app->post('/updateRole',"AccountController:updateRole");
 $app->post('/updateProfile',"AccountController:updateProfile")->setName('user.updateProfile');
+$app->post('/updateDocument',"AccountController:addDocument")->setName('user.addDocument');
