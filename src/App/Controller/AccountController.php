@@ -22,7 +22,6 @@ class AccountController extends Controller
       $scanned_subdirectory = array_diff(scandir("$directory/$type"), array('..', '.'));
       $files[$type] = $scanned_subdirectory;
     }
-    print_r($files);
     return $this->view->render($response, 'App/account.twig', ["entreprise"=>$user->entreprise()->first(), "files"=>$files]);
   }
 
