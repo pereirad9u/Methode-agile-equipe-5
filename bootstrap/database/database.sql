@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2017 at 01:50
+-- Generation Time: Jan 27, 2017 at 03:42
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.9
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `agile`
+-- Database: `agile2`
 --
 
 -- --------------------------------------------------------
@@ -36,12 +36,31 @@ CREATE TABLE `activations` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `activations`
+-- Table structure for table `appeloffre`
 --
 
-INSERT INTO `activations` (`id`, `user_id`, `code`, `completed`, `completed_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'rXMqoruxoIoSme9E5TskyREldu8kBUcp', 1, '2017-01-04 13:49:59', '2017-01-04 13:49:59', '2017-01-04 13:49:59');
+CREATE TABLE `appeloffre` (
+  `id` int(255) NOT NULL,
+  `nom` text NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `entreprise`
+--
+
+CREATE TABLE `entreprise` (
+  `id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `nom` text NOT NULL,
+  `chiffre_affaire` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -56,13 +75,6 @@ CREATE TABLE `persistences` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `persistences`
---
-
-INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`) VALUES
-(1, 1, 'UfhT8hS0GW4izo6wgpsVfGP6198Qn9YF', '2017-01-04 13:50:17', '2017-01-04 13:50:17');
 
 -- --------------------------------------------------------
 
@@ -102,8 +114,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `slug`, `name`, `permissions`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'Admin', '{"user.create":true,"user.update":true,"user.delete":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
 (2, 'user', 'User', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
-(3, 'moe', 'Maitre d\'oeuvre', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
-(2, 'mo', 'Maitre d\'ouvrage', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57');
+(3, 'moe', 'Maitre d''oeuvre', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57'),
+(4, 'mo', 'Maitre d''ouvrage', '{"user.update":true}', '2017-01-04 13:48:57', '2017-01-04 13:48:57');
 
 -- --------------------------------------------------------
 
@@ -117,13 +129,6 @@ CREATE TABLE `role_users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `role_users`
---
-
-INSERT INTO `role_users` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 2, '2017-01-04 13:49:59', '2017-01-04 13:49:59');
 
 -- --------------------------------------------------------
 
@@ -139,14 +144,6 @@ CREATE TABLE `throttle` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `throttle`
---
-
-INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'global', NULL, '2017-01-04 13:50:07', '2017-01-04 13:50:07'),
-(2, NULL, 'ip', '127.0.0.1', '2017-01-04 13:50:07', '2017-01-04 13:50:07');
 
 -- --------------------------------------------------------
 
@@ -164,15 +161,9 @@ CREATE TABLE `user` (
   `permissions` text NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `entreprise_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `last_name`, `first_name`, `permissions`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'iryu54', 'corentinlabroche@gmail.com', '$2y$10$1Mxt6QTSQbHRbLBaEpCfxOcgTJ0.IoQnPLmrFmFvac4SBkrssL0g.', NULL, NULL, '{"user.delete":0}', '2017-01-04 13:50:17', '2017-01-04 13:49:59', '2017-01-04 13:50:17');
 
 --
 -- Indexes for dumped tables
@@ -184,6 +175,19 @@ INSERT INTO `user` (`id`, `username`, `email`, `password`, `last_name`, `first_n
 ALTER TABLE `activations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `activations_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `appeloffre`
+--
+ALTER TABLE `appeloffre`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `entreprise`
+--
+ALTER TABLE `entreprise`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `persistences`
@@ -237,12 +241,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `activations`
 --
 ALTER TABLE `activations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `appeloffre`
+--
+ALTER TABLE `appeloffre`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `entreprise`
+--
+ALTER TABLE `entreprise`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `reminders`
 --
@@ -252,17 +266,17 @@ ALTER TABLE `reminders`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
