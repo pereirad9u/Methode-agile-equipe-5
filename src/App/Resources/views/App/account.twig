@@ -8,10 +8,10 @@
     <fieldset>
       <form action="{{ path_for('user.updateProfile') }}" method="POST">
           {{ form.group('email', null, 'email', 'Email', null, 'email',auth.user.email) }}
-          {{ form.group('entreprise', null, 'entreprise', 'Nom d\'entreprise', null,'number',entreprise.nom) }}
+          {{ form.group('entreprise', null, 'entreprise', 'Nom d\'entreprise', null,null,entreprise.nom) }}
           {% for role in auth.user.roles %}
             {% if role.slug=='moe' and entreprise.nom %}
-              {{ form.group('chiffre_affaire', null, 'chiffre_affaire', 'Chiffre d\'affaire', null,null,entreprise.chiffre_affaire) }}
+              {{ form.group('chiffre_affaire', null, 'chiffre_affaire', 'Chiffre d\'affaire', null,'number',entreprise.chiffre_affaire) }}
             {% endif %}
           {% endfor %}
           {{ csrf() }}
@@ -53,7 +53,7 @@
       {% if role.slug=='mo' and entreprise.nom %}
         Mes appels d'offres:
         {% for appeloffre in appelOffres %}
-          <a href="{{path_for('appeloffre.show', {'ao_id': appeloffre.id})}}">{{appeloffre.nom}}</a> 
+          <a href="{{path_for('appeloffre.show', {'ao_id': appeloffre.id})}}">{{appeloffre.nom}}</a>
         {% endfor %}
         <a href="{{path_for('appeloffre.create')}}" class="btn btn-x-lg btn-primary">Creer un appel d'offre</a>
       {% endif %}

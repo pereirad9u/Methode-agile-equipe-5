@@ -3,9 +3,12 @@
 {% block body %}
 
 <div class="container">
-    <div class="jumbotron">
-        <h1>Hello world!</h1>
-    </div>
+  {% for appelOffre in appelOffres %}
+    <ul>
+        <li> <a href="{{path_for('appeloffre.show', {'ao_id': appelOffre.id})}}"><h1>{{appelOffre.nom}}<span class="subTitle">{{appelOffre.entreprise.nom}}</span></h1></a> </li>
+    </ul>
+
+  {% endfor %}
 </div>
 
 {% endblock %}

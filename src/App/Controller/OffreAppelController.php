@@ -36,11 +36,11 @@ class OffreAppelController extends Controller
   {
     $user = $this->user();
     $id = $args['ao_id'];
-    $appelOffre = AppelOffre::find($id)->first();
-    echo "<pre>";
-    $userOffre = User::find($appelOffre->id)->first();
+
+    $appelOffre = AppelOffre::where('id',$id)->get()->first();
+    $userOffre = User::where('id',$appelOffre->user_id)->first();
     $entreprise = $userOffre->entreprise()->first();
-    return $this->view->render($response, 'App/showOffre.twig', ["userOfre"=>$userOffre,"appelOffre" => $appelOffre, 'entreprise' => $entreprise]);
+    return $this->view->render($response, 'App/showOffre.twig', ["userOffre"=>$userOffre,"appelOffre" => $appelOffre, 'entreprise' => $entreprise]);
   }
 
   public function addDocument(Request $request, Response $response)
