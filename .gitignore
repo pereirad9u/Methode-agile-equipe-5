@@ -4,3 +4,4 @@ vendor/
 cache/twig/*
 !cache/twig/.gitkeep
 bootstrap/db.php
+*.pdf

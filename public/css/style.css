@@ -2,9 +2,16 @@
     text-align: center;
 }
 
+.subTitle{
+  font-size: 0.5em;
+  color: rgba(0, 0, 0, 0.5);
+}
 b{
     margin-top: 2%;
     margin-bottom: 1%;
+}
+.btn-x-lg{
+  width: 100%;
 }
 
 .alert{

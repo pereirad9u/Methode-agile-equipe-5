@@ -58,7 +58,7 @@ class Controller
     }
 
 
-    
+
     /**
      * Redirect to url
      *
@@ -125,4 +125,5 @@ class Controller
     {
         return $this->container->get($property);
     }
+
 }

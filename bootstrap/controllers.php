@@ -11,3 +11,6 @@ $container['AuthController'] = function ($container) {
 $container['AccountController'] = function ($container) {
     return new App\Controller\AccountController($container);
 };
+$container['OffreAppelController'] = function ($container) {
+    return new App\Controller\OffreAppelController($container);
+};
